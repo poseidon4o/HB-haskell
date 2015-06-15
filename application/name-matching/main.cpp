@@ -8,6 +8,10 @@ using namespace std;
 // assuming no name repetitions
 // and random picking of a name
 
+// this will also be true if there are repeating names
+// assuming picking a person's name is at random and not
+// so that Hass will have better chance (picking most common names first)
+
 int fact(int x) {
 	int result = 1;
 	while (x > 1) {
