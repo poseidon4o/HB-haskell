@@ -39,21 +39,33 @@ lastt (x:xs) = lastt xs
 
 double :: [Int] -> [Int]
 double (x:xs) = x * 2 : double xs
-double ([]) = []
+double [] = []
 
 mult :: Int -> [Int] -> [Int]
-mult _ ([]) = []
+mult _ [] = []
 mult x (h:t) = x * h : mult x t
 
 nth :: Int -> [Int] -> Int
 nth 0 (x:_) = x
-nth x ([]) = error "NO!"
+nth x [] = error "NO!"
 nth x (h:t)
     | x < 0 = error "NO!" 
     | otherwise = nth (x - 1) t
 
 
 member :: Int -> [Int] -> Bool
-member x ([]) = False
+member x [] = False
 member x (h:xs) = x == h || member x xs
 
+multLists :: [Int] -> [Int] -> [Int]
+multLists [] _ = []
+multLists _ [] = []
+multLists (l:tl) (r:tr) = l * r : multLists tl tr
+
+sum_ :: [Int] -> Int
+sum_ [] = 0
+sum_ (h:t) = h + sum t
+
+product_ :: [Int] -> Int
+product_ [] = 1
+product_ (h:t) = h * product_ t
