@@ -157,3 +157,22 @@ flatten [h] = h
 flatten (f:s:t) = flatten ((listConcat f s) : t)
 
 
+foldl_ :: (y -> x -> y) -> y -> [x] -> y
+foldl_ fn b (e:es) = foldl_ fn (fn b e) es
+foldl_ _  b []     = b
+
+foldr_ :: (y -> x -> y) -> y -> [x] -> y
+foldr_ fn b (e:es) = fn b foldr_ b es
+foldr_ _  b []     = b
+
+map_ :: (x -> y) -> [x] -> [y]
+map_ fn (x:xs) = fn x : map_ fn xs
+map_ _  []     = []
+
+filter_ :: (x -> Bool) -> [x] -> [x]
+filter_ fn (e:es) 
+    | fn e      = e : filter_ fn es
+    | otherwise = filter_ fn es
+filter_ _  []     = []
+
+
