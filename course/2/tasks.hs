@@ -61,7 +61,19 @@ unit id sz = map (\i -> row i) [0..sz - 1]
     where row z = (take z $ repeat 0) ++ [id] ++ (take (sz - z - 1) $ repeat 0)
 
 
+row :: Int -> [[Int]] -> [Int]
+row _ [] = []
+row i (x:xs)
+    | i < 0 = error "invalid row"
+    | otherwise = if i == 0 then x else row (i - 1) xs
 
-
-
-
+transpose_ :: [[Int]] -> [[Int]]
+transpose_ [] = []
+transpose_ (e:es)
+    | e == [] = []
+    | otherwise = oneRow l : transpose_ (removeOne l)
+        where oneRow [] = []
+              oneRow (x:xs) = head x : oneRow xs
+              removeOne [] = []
+              removeOne (x:xs) = tail x : removeOne xs
+              l = e:es
